@@ -47,6 +47,16 @@
         .card-property:hover img {
             transform: scale(1.05);
         }
+        /* Mobile menu transition */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.active {
+            max-height: 400px;
+            padding-bottom: 1.5rem;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -58,6 +68,8 @@
                 <div class="flex-shrink-0">
                     <span class="text-2xl font-bold text-slate-900">CHANCAY<span class="text-amber-700">LUX</span></span>
                 </div>
+                
+                <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#inicio" class="hover:text-amber-700 font-medium transition-colors">Inicio</a>
@@ -66,6 +78,23 @@
                         <a href="#contacto" class="bg-slate-900 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition-all">Contacto</a>
                     </div>
                 </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-slate-900 hover:text-amber-700 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Container -->
+        <div id="mobile-menu" class="md:hidden bg-white border-t border-slate-100 px-4">
+            <div class="flex flex-col space-y-4 pt-4">
+                <a href="#inicio" class="mobile-link text-slate-900 hover:text-amber-700 font-medium py-2 border-b border-slate-50">Inicio</a>
+                <a href="#propiedades" class="mobile-link text-slate-900 hover:text-amber-700 font-medium py-2 border-b border-slate-50">Propiedades</a>
+                <a href="#servicios" class="mobile-link text-slate-900 hover:text-amber-700 font-medium py-2 border-b border-slate-50">Servicios</a>
+                <a href="#contacto" class="mobile-link bg-slate-900 text-white px-6 py-3 rounded-xl text-center font-medium">Contacto</a>
             </div>
         </div>
     </nav>
@@ -76,8 +105,8 @@
             <h1 class="text-5xl md:text-7xl mb-6">Invierta en el Futuro de Chancay</h1>
             <p class="text-xl md:text-2xl font-light mb-10 text-slate-200">Encuentre la propiedad ideal cerca del Megapuerto más importante de Sudamérica.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#propiedades" class="bg-amber-700 hover:bg-amber-800 text-white px-10 py-4 rounded-lg text-lg transition-all shadow-lg">Ver Catálogo</a>
-                <a href="#contacto" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white px-10 py-4 rounded-lg text-lg transition-all">Solicitar Asesoría</a>
+                <a href="#propiedades" class="bg-amber-700 hover:bg-amber-800 text-white px-10 py-4 rounded-lg text-lg transition-all shadow-lg text-center">Ver Catálogo</a>
+                <a href="#contacto" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white px-10 py-4 rounded-lg text-lg transition-all text-center">Solicitar Asesoría</a>
             </div>
         </div>
     </header>
@@ -156,7 +185,7 @@
     </section>
 
     <!-- Sección de Información -->
-    <section class="bg-slate-900 text-white py-20">
+    <section id="servicios" class="bg-slate-900 text-white py-20">
         <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
             <div>
                 <h2 class="text-4xl font-bold mb-6">¿Por qué invertir en Chancay hoy?</h2>
@@ -254,6 +283,33 @@
     <a href="https://wa.me/51987654321?text=Hola,%20estoy%20interesado%20en%20una%20propiedad%20en%20Chancay" target="_blank" class="whatsapp-float">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
+
+    <script>
+        // Lógica del Menú Móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuButton.querySelector('i');
+            if (mobileMenu.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMenu);
+
+        // Cerrar el menú al hacer clic en un enlace
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                mobileMenuButton.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+    </script>
 
 </body>
 </html>
